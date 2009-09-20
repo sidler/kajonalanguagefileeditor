@@ -25,13 +25,12 @@ import de.mulchprod.kajona.languageeditor.core.CoreBaseException;
 import de.mulchprod.kajona.languageeditor.core.logger.LELogger;
 import de.mulchprod.kajona.languageeditor.core.textfile.Textentry.EntryNotSetException;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- *
+ * This class represents a single textfile.
+ * A textfile contains the key value pairs of a given module / element in a single language.
+ * The k-v-pairs themselfs are represented by instances of Textentry
  * @author sidler
  */
 public class Textfile implements ITextfile {
@@ -83,7 +82,17 @@ public class Textfile implements ITextfile {
         return key;
     }
 
-
+    /**
+     * Updates the key of a textentry.
+     * Searches the Map of entries in order to find the matching key.
+     * Markes the file as dirty if the entry to update was found.
+     *
+     * @param oldReadableKey
+     * @param newReadableKey
+     * @return
+     * @throws de.mulchprod.kajona.languageeditor.core.textfile.Textfile.KeyNotFoundException
+     * @throws de.mulchprod.kajona.languageeditor.core.textfile.Textfile.KeyNotUniqueException
+     */
     public boolean setKeyValue(String oldReadableKey, String newReadableKey) throws KeyNotFoundException, KeyNotUniqueException {
         LELogger.getInstance().logInfo("Textfile.setKeyValue: "+oldReadableKey+" to "+newReadableKey+" --> "+this.filename);
         Textentry entryToUpdate = null;
@@ -124,6 +133,15 @@ public class Textfile implements ITextfile {
     }
 
 
+    /**
+     * Sets the value of a single texentries.
+     * Marks the file as dirty if the value differs from the value before.
+     *
+     * @param readableKey
+     * @param newValue
+     * @return
+     * @throws de.mulchprod.kajona.languageeditor.core.textfile.Textfile.KeyNotFoundException
+     */
     public boolean setValue(String readableKey, String newValue) throws KeyNotFoundException {
         LELogger.getInstance().logInfo("Textfile.setValue: Key: "+readableKey+" --> "+this.filename);
         Textentry entryToUpdate = null;
@@ -137,8 +155,10 @@ public class Textfile implements ITextfile {
             throw new KeyNotFoundException("Key to update >"+readableKey+"< not found");
 
         //if we reached up till here, update!
-        entryToUpdate.setReadableValue(newValue);
-        fileHasChanged = true;
+        if(!entryToUpdate.getReadableValue().equals(newValue)) {
+            entryToUpdate.setReadableValue(newValue);
+            fileHasChanged = true;
+        }
         return true;
     }
 
@@ -248,14 +268,6 @@ public class Textfile implements ITextfile {
         return textEntries;
     }
 
-    /**
-     * @deprecated use getTextEntries() instead
-     * @return
-     */
-    public Map<String, Textentry> getTextEntriesForWriting() {
-        return textEntries;
-    }
-
     public String getArea() {
         return area;
     }
@@ -276,19 +288,9 @@ public class Textfile implements ITextfile {
         return nonEditableTextEntries;
     }
 
-    /**
-     * @deprecated use getgetNonEditableTextEntries() instead
-     * @return
-     */
-    public Map<String, Textentry> getNonEditableTextEntriesForWriting() {
-        return nonEditableTextEntries;
-    }
-
     public void setNonEditableTextEntries(TreeMap<String, Textentry> nonEditableTextEntries) {
         this.nonEditableTextEntries = nonEditableTextEntries;
     }
-
-    
 
     public class FileNotSetException extends CoreBaseException {
     }
