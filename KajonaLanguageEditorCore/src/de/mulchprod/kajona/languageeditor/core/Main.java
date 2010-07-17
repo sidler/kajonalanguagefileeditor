@@ -27,6 +27,7 @@ import de.mulchprod.kajona.languageeditor.core.filesystem.Filesystem.FolderNotEx
 import de.mulchprod.kajona.languageeditor.core.textfile.ILanguageFileSet;
 
 
+
 /**
  *
  * @author sidler
@@ -78,8 +79,8 @@ public class Main {
             System.out.println("Portal-languages: "+manager.getListOfPortalLanguages());
             System.out.println("Build: "+manager.getBuildVersion());
 
-            System.out.println("Creating new file-set for language fr");
-            manager.createNewLanguageSet("pt");
+            //System.out.println("Creating new file-set for language fr");
+            //manager.createNewLanguageSet("pt");
             
             
         } catch (LanguageCoreNotInitializedException ex) {

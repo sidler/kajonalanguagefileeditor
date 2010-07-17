@@ -51,6 +51,10 @@ public class Filemanager {
       private boolean bitInitialized = false;
 
 
+      private ILanguageFileSet fileSetMarkedForCopy = null;
+      private String keyMarkedForCopy = null;
+
+
       public void addLogListener(ILELoggingListener listener) {
           LELogger.getInstance().addLoggingListener(listener);
       }
@@ -68,6 +72,39 @@ public class Filemanager {
 
           return false;
       }
+
+
+      public void resetCopyKey() {
+          this.keyMarkedForCopy = null;
+          this.fileSetMarkedForCopy = null;
+      }
+
+      public void copyEntryByKey(ILanguageFileSet sourceFileSet, String keyToCopy) {
+          this.fileSetMarkedForCopy = sourceFileSet;
+          this.keyMarkedForCopy = keyToCopy;
+
+          LELogger.getInstance().logInfo("Marked key "+keyToCopy+" for copy, source: "+sourceFileSet);
+      }
+
+      
+      public boolean pasteEntryToFileset(ILanguageFileSet targetFileSet) throws CopySourceNotInitializedException {
+
+          //load the source-elements
+          if(fileSetMarkedForCopy == null || keyMarkedForCopy == null) {
+              throw new CopySourceNotInitializedException("No source-key to copy found!");
+          }
+
+          LELogger.getInstance().logInfo("pasteing to set: "+targetFileSet);
+          for(String language : fileSetMarkedForCopy.getListOfLanguages()) {
+              String value = fileSetMarkedForCopy.getValueForKey(keyMarkedForCopy, language);
+
+              //paste it
+              targetFileSet.updateValue(keyMarkedForCopy,  value, language);
+          }
+
+          return true;
+      }
+
 
       /**
        * Creates the files for a new language and places empty strings
@@ -246,4 +283,16 @@ public class Filemanager {
         }
     }
 
+    public class CopySourceNotInitializedException extends CoreBaseException {
+        public CopySourceNotInitializedException(String cause) {
+            super(cause);
+        }
+    }
+
+    public String getKeyMarkedForCopy() {
+        return keyMarkedForCopy;
+    }
+
+
+    
 }
