@@ -22,6 +22,7 @@
 package de.mulchprod.kajona.languageeditor.gui.coreconnector;
 
 import de.mulchprod.kajona.languageeditor.core.Filemanager;
+import de.mulchprod.kajona.languageeditor.core.Filemanager.CopySourceNotInitializedException;
 import de.mulchprod.kajona.languageeditor.core.Filemanager.LanguageCoreNotInitializedException;
 import de.mulchprod.kajona.languageeditor.core.config.Configuration.ConfigNotSetException;
 import de.mulchprod.kajona.languageeditor.core.filesystem.Filesystem.FolderNotExistingException;
@@ -73,6 +74,23 @@ public class CoreConnector {
         filemanager = new Filemanager();
         filemanager.addLogListener(listener);
         initConnector();
+    }
+
+    public void copyKey(ILanguageFileSet sourceSet, String keyToCopy) {
+        filemanager.copyEntryByKey(sourceSet, keyToCopy);
+    }
+
+    public boolean pasteKey(ILanguageFileSet targetSet) {
+        try {
+            filemanager.pasteEntryToFileset(targetSet);
+        } catch (CopySourceNotInitializedException ex) {
+            return false;
+        }
+        return true;
+    }
+
+    public String getKeyMarkedToCopy() {
+        return filemanager.getKeyMarkedForCopy();
     }
 
     public void createNewLanguage(String newLanguage) {

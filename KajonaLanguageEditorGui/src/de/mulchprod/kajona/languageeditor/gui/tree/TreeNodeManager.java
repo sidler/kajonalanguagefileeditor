@@ -61,10 +61,6 @@ public class TreeNodeManager {
         else if(area == AreaType.PORTAL)
             nodeSet = portalModuleNodes;
 
-//        for(String setKey : nodeSet.keySet()) {
-//            if(setKey.equals(key))
-//                return nodeSet.get(setKey);
-//        }
         if(nodeSet.containsKey(key)) {
             return nodeSet.get(key);
         }

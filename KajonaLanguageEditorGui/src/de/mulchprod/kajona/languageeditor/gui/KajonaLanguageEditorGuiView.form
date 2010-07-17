@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7">
   <NonVisualComponents>
@@ -388,6 +388,15 @@
             <Property name="name" type="java.lang.String" value="newLangItem" noResource="true"/>
           </Properties>
         </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="pasteKey">
+          <Properties>
+            <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+              <action class="de.mulchprod.kajona.languageeditor.gui.KajonaLanguageEditorGuiView" id="pasteKeyAction" methodName="pasteKeyAction"/>
+            </Property>
+            <Property name="text" type="java.lang.String" resourceKey="Paste Key and Values.text"/>
+            <Property name="name" type="java.lang.String" value="Paste Key and Values" noResource="true"/>
+          </Properties>
+        </MenuItem>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPopupMenu" name="leafPopupMenu">
@@ -429,6 +438,15 @@
             </Property>
             <Property name="text" type="java.lang.String" resourceKey="deleteItem.text"/>
             <Property name="name" type="java.lang.String" value="deleteItem" noResource="true"/>
+          </Properties>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="copyKey">
+          <Properties>
+            <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+              <action class="de.mulchprod.kajona.languageeditor.gui.KajonaLanguageEditorGuiView" id="copyKeyAction" methodName="copyKeyAction"/>
+            </Property>
+            <Property name="text" type="java.lang.String" resourceKey="copyKey.text"/>
+            <Property name="name" type="java.lang.String" value="copyKey" noResource="true"/>
           </Properties>
         </MenuItem>
       </SubComponents>

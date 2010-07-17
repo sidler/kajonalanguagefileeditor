@@ -266,11 +266,13 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         nodePopupMenu = new javax.swing.JPopupMenu();
         newItem = new javax.swing.JMenuItem();
         newLangItem = new javax.swing.JMenuItem();
+        pasteKey = new javax.swing.JMenuItem();
         leafPopupMenu = new javax.swing.JPopupMenu();
         newItem2 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JSeparator();
         renameItem = new javax.swing.JMenuItem();
         deleteItem = new javax.swing.JMenuItem();
+        copyKey = new javax.swing.JMenuItem();
 
         mainPanel.setName("mainPanel"); // NOI18N
 
@@ -473,6 +475,11 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         newLangItem.setName("newLangItem"); // NOI18N
         nodePopupMenu.add(newLangItem);
 
+        pasteKey.setAction(actionMap.get("pasteKeyAction")); // NOI18N
+        pasteKey.setText(resourceMap.getString("Paste Key and Values.text")); // NOI18N
+        pasteKey.setName("Paste Key and Values"); // NOI18N
+        nodePopupMenu.add(pasteKey);
+
         leafPopupMenu.setName("leafPopupMenu"); // NOI18N
 
         newItem2.setAction(actionMap.get("newLanguageKey")); // NOI18N
@@ -492,6 +499,11 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         deleteItem.setText(resourceMap.getString("deleteItem.text")); // NOI18N
         deleteItem.setName("deleteItem"); // NOI18N
         leafPopupMenu.add(deleteItem);
+
+        copyKey.setAction(actionMap.get("copyKeyAction")); // NOI18N
+        copyKey.setText(resourceMap.getString("copyKey.text")); // NOI18N
+        copyKey.setName("copyKey"); // NOI18N
+        leafPopupMenu.add(copyKey);
 
         setComponent(mainPanel);
         setMenuBar(menuBar);
@@ -744,7 +756,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
             //reinit the trees
             initInternalProperties();
 
-             JTree tree = null;
+            JTree tree = null;
             if(lastSelectedGuiTreeNode.getReferencingTreeNode().getReferencingObject().getArea().equals("admin"))
                 tree = adminTree;
             else
@@ -771,6 +783,63 @@ public class KajonaLanguageEditorGuiView extends FrameView {
             tree.scrollPathToVisible(path);
             tree.expandPath(path);
         }
+    }
+
+    @Action
+    public void copyKeyAction() {
+        ILanguageFileSet referencedSet = lastSelectedGuiTreeNode.getReferencingTreeNode().getReferencingObject();
+        String selectedKey = this.lastSelectedGuiTreeNode.getReferencingTreeNode().getNodeName();
+        //pass value to backend
+        CoreConnector.getInstance().copyKey(referencedSet, selectedKey);
+    }
+
+    @Action
+    public void pasteKeyAction() {
+        ILanguageFileSet referencedSet = lastSelectedGuiTreeNode.getReferencingTreeNode().getReferencingObject();
+        //pass value to backend
+        if(!CoreConnector.getInstance().pasteKey(referencedSet)) {
+            JOptionPane.showMessageDialog(mainPanel, "No key to paste selected", "Error",  JOptionPane.ERROR_MESSAGE);
+        }
+
+        //reinit
+        initInternalProperties();
+
+        JTree tree = null;
+        if(lastSelectedGuiTreeNode.getReferencingTreeNode().getReferencingObject().getArea().equals("admin"))
+            tree = adminTree;
+        else
+            tree = portalTree;
+
+
+
+        TreePath path = new TreePath(  tree.getModel().getRoot()  );
+        Object parentNode = tree.getModel().getRoot();
+        for(int i=0; i < tree.getModel().getChildCount(parentNode); i++) {
+            GuiTreeNode node = (GuiTreeNode)tree.getModel().getChild(parentNode, i);
+            if(referencedSet.getModule().equals(node.getReferencingTreeNode().getNodeName())) {
+                path = path.pathByAddingChild((DefaultMutableTreeNode)node);
+                parentNode = node;
+            }
+        }
+
+        for(int i=0; i < tree.getModel().getChildCount(parentNode); i++) {
+            GuiTreeNode node = (GuiTreeNode)tree.getModel().getChild(parentNode, i);
+            if(referencedSet.getModulePart().equals(node.getReferencingTreeNode().getNodeName())) {
+                path = path.pathByAddingChild((DefaultMutableTreeNode)node);
+                parentNode = node;
+            }
+        }
+
+        for(int i=0; i < tree.getModel().getChildCount(parentNode); i++) {
+            GuiTreeNode node = (GuiTreeNode)tree.getModel().getChild(parentNode, i);
+            if(CoreConnector.getInstance().getKeyMarkedToCopy().equals(node.getReferencingTreeNode().getNodeName())) {
+                path = path.pathByAddingChild((DefaultMutableTreeNode)node);
+                parentNode = node;
+            }
+        }
+
+        tree.scrollPathToVisible(path);
+        tree.setSelectionPath(path);
     }
 
     @Action
@@ -892,6 +961,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
     private javax.swing.JTree adminTree;
     private javax.swing.JScrollPane adminTreeScrollPane;
     private javax.swing.JMenuItem consoleMenuItem;
+    private javax.swing.JMenuItem copyKey;
     private javax.swing.JMenuItem createLangMenuItem;
     private javax.swing.JMenuItem deleteItem;
     private javax.swing.JButton jButton1;
@@ -911,6 +981,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
     private javax.swing.JMenuItem newItem2;
     private javax.swing.JMenuItem newLangItem;
     private javax.swing.JPopupMenu nodePopupMenu;
+    private javax.swing.JMenuItem pasteKey;
     private javax.swing.JTree portalTree;
     private javax.swing.JScrollPane portalTreeScrollPane;
     private javax.swing.JProgressBar progressBar;
