@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.mulchprod.kajona.languageeditor</groupId>
+    <artifactId>KajonaLanguageEditorGui</artifactId>
+    <packaging>jar</packaging>
+    <version>1.1-SNAPSHOT</version>
+    <name>Kajona Language Editor Gui</name>
+    <url>http://www.mulchprod.de</url>
+
+    <parent>
+        <groupId>de.mulchprod.kajona.languageeditor</groupId>
+        <artifactId>KajonaLanguageEditor</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.0-beta-3</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                    <buildNumberPropertiesFileLocation>${basedir}/src/main/java/de/mulchprod/kajona/languageeditor/gui/resources/KajonaLanguageEditorGuiApp.properties</buildNumberPropertiesFileLocation>
+                    <buildNumberPropertyName>BUILD</buildNumberPropertyName>
+                    <format>{0, number}</format>
+                    <items>
+                        <item>buildNumber</item>
+                    </items>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <target>1.6</target>
+                    <source>1.6</source>
+      
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>fully.qualified.MainClass</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>de.mulchprod.kajona.languageeditor.gui.KajonaLanguageEditorGuiApp</mainClass>
+                        </manifest>
+                        
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <targetPath>de/mulchprod/kajona/languageeditor/gui/resources</targetPath>
+                <filtering>false</filtering>
+                <directory>${basedir}/src/main/java/de/mulchprod/kajona/languageeditor/gui/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+
+            <resource>
+                <targetPath>de/mulchprod/kajona/languageeditor/gui</targetPath>
+                <filtering>false</filtering>
+                <directory>${basedir}/src/main/java/de/mulchprod/kajona/languageeditor/gui</directory>
+                <includes>
+                    <include>*.*</include>
+                </includes>
+                <excludes>
+                    <exclude>*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.mulchprod.kajona.languageeditor</groupId>
+            <artifactId>KajonaLanguageEditorCore</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.appframework</groupId>
+            <artifactId>appframework</artifactId>
+            <version>1.03</version>
+        </dependency>
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swing-worker</artifactId>
+            <version>1.1</version>
+        </dependency>
+    </dependencies>
+</project>
+ 
