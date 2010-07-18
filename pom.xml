@@ -9,6 +9,11 @@
     <name>Kajona Language Editor</name>
     <url>http://www.mulchprod.de</url>
 
+    <scm>
+        <developerConnection>scm:svn:file:///daten/wwwroot/KajonaLanguageEditor/</developerConnection>
+    </scm>
+
+
 
     <modules>
         <module>KajonaLanguageEditorCore</module>
@@ -35,6 +40,18 @@
                     </descriptors>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+<!--                    <releaseProfiles>release</releaseProfiles>-->
+                    <goals>deploy assembly:assembly</goals>
+                    
+                    <tagBase>https://languageeditor.svn.sourceforge.net/svnroot/languageeditor/tags</tagBase>
+
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
