@@ -56,18 +56,17 @@ public class KajonaLanguageEditorGuiAboutBox extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(de.mulchprod.kajona.languageeditor.gui.KajonaLanguageEditorGuiApp.class).getContext().getResourceMap(KajonaLanguageEditorGuiAboutBox.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(KajonaLanguageEditorGuiAboutBox.class);
         setTitle(resourceMap.getString("title")); // NOI18N
         setModal(true);
         setName("aboutBox"); // NOI18N
         setResizable(false);
 
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(de.mulchprod.kajona.languageeditor.gui.KajonaLanguageEditorGuiApp.class).getContext().getActionMap(KajonaLanguageEditorGuiAboutBox.class, this);
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(KajonaLanguageEditorGuiAboutBox.class, this);
         closeButton.setAction(actionMap.get("closeAboutBox")); // NOI18N
         closeButton.setName("closeButton"); // NOI18N
 
         appTitleLabel.setFont(appTitleLabel.getFont().deriveFont(appTitleLabel.getFont().getStyle() | java.awt.Font.BOLD, appTitleLabel.getFont().getSize()+4));
-        appTitleLabel.setText(resourceMap.getString("Application.title")); // NOI18N
         appTitleLabel.setName("appTitleLabel"); // NOI18N
 
         versionLabel.setFont(versionLabel.getFont().deriveFont(versionLabel.getFont().getStyle() & ~java.awt.Font.BOLD));
@@ -75,7 +74,6 @@ public class KajonaLanguageEditorGuiAboutBox extends javax.swing.JDialog {
         versionLabel.setName("versionLabel"); // NOI18N
 
         appVersionLabel.setFont(appVersionLabel.getFont().deriveFont(appVersionLabel.getFont().getStyle() & ~java.awt.Font.BOLD));
-        appVersionLabel.setText(resourceMap.getString("Application.version")); // NOI18N
         appVersionLabel.setName("appVersionLabel"); // NOI18N
 
         vendorLabel.setFont(vendorLabel.getFont().deriveFont(vendorLabel.getFont().getStyle() & ~java.awt.Font.BOLD));
@@ -83,7 +81,6 @@ public class KajonaLanguageEditorGuiAboutBox extends javax.swing.JDialog {
         vendorLabel.setName("vendorLabel"); // NOI18N
 
         appVendorLabel.setFont(appVendorLabel.getFont().deriveFont(appVendorLabel.getFont().getStyle() & ~java.awt.Font.BOLD));
-        appVendorLabel.setText(resourceMap.getString("Application.vendor")); // NOI18N
         appVendorLabel.setName("appVendorLabel"); // NOI18N
 
         homepageLabel.setFont(homepageLabel.getFont().deriveFont(homepageLabel.getFont().getStyle() & ~java.awt.Font.BOLD));
@@ -91,7 +88,6 @@ public class KajonaLanguageEditorGuiAboutBox extends javax.swing.JDialog {
         homepageLabel.setName("homepageLabel"); // NOI18N
 
         appHomepageLabel.setFont(appHomepageLabel.getFont().deriveFont(appHomepageLabel.getFont().getStyle() & ~java.awt.Font.BOLD));
-        appHomepageLabel.setText(resourceMap.getString("Application.homepage")); // NOI18N
         appHomepageLabel.setName("appHomepageLabel"); // NOI18N
 
         appDescLabel.setFont(resourceMap.getFont("appDescLabel.font")); // NOI18N
@@ -147,13 +143,13 @@ public class KajonaLanguageEditorGuiAboutBox extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(homepageLabel)
                             .addComponent(appHomepageLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(closeButton))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        appVersionLabel.setText(resourceMap.getString("Application.version")+" \nGuiBuild " +resourceMap.getString("BUILD")+" CoreBuild "+CoreConnector.getInstance().getCoreBuild());
+        appVersionLabel.setText(resourceMap.getString("Application.version")+" \nGuiBuild " +resourceMap.getString("buildNumber")+" CoreBuild "+CoreConnector.getInstance().getCoreBuild());
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
