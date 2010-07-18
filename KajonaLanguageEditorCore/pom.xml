@@ -1,0 +1,86 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.mulchprod.kajona.languageeditor</groupId>
+    <artifactId>KajonaLanguageEditorCore</artifactId>
+    <packaging>jar</packaging>
+    <version>1.1-SNAPSHOT</version>
+    <name>Kajona Language Editor Core</name>
+    <url>http://www.mulchprod.de</url>
+
+    <parent>
+        <groupId>de.mulchprod.kajona.languageeditor</groupId>
+        <artifactId>KajonaLanguageEditor</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.0-beta-3</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                    <buildNumberPropertiesFileLocation>${basedir}/src/main/java/de/mulchprod/kajona/languageeditor/core/coreprops.properties</buildNumberPropertiesFileLocation>
+                    <buildNumberPropertyName>BUILD</buildNumberPropertyName>
+                    <format>{0, number}</format>
+                    <items>
+                        <item>buildNumber</item>
+                    </items>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <target>1.6</target>
+                    <source>1.6</source>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <targetPath>de/mulchprod/kajona/languageeditor/core</targetPath>
+                <filtering>false</filtering>
+                <directory>${basedir}/src/main/java/de/mulchprod/kajona/languageeditor/core</directory>
+                <includes>
+                    <include>*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
+ 
