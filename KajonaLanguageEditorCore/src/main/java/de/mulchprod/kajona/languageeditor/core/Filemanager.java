@@ -128,7 +128,7 @@ public class Filemanager {
 
       public String getBuildVersion() {
           ResourceBundle rb = ResourceBundle.getBundle("de.mulchprod.kajona.languageeditor.core.coreprops");
-          return rb.getString("BUILD");
+          return rb.getString("buildNumber");
       }
 
       public void setKajonaProjectPath(String newPath) {
