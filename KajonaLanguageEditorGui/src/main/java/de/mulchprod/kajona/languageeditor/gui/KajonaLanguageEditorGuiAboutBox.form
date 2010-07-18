@@ -76,7 +76,7 @@
                           <Component id="homepageLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="appHomepageLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="37" max="32767" attributes="0"/>
+                      <EmptySpace pref="22" max="32767" attributes="0"/>
                       <Component id="closeButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel1" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
@@ -161,6 +161,9 @@
             <Font bold="false" component="appVendorLabel" property="font" relativeSize="true" size="0"/>
           </FontInfo>
         </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/mulchprod/kajona/languageeditor/gui/resources/KajonaLanguageEditorGuiApp.properties" key="Application.vendor" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="appVendorLabel" noResource="true"/>
       </Properties>
       <AuxValues>
@@ -190,6 +193,9 @@
             <Font bold="false" component="appHomepageLabel" property="font" relativeSize="true" size="0"/>
           </FontInfo>
         </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/mulchprod/kajona/languageeditor/gui/resources/KajonaLanguageEditorGuiApp.properties" key="Application.homepage" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="appHomepageLabel" noResource="true"/>
       </Properties>
       <AuxValues>
@@ -204,6 +210,7 @@
         <Property name="name" type="java.lang.String" value="appDescLabel" noResource="true"/>
       </Properties>
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="KajonaLanguageEditorGuiAboutBox_appDescLabel"/>
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
       </AuxValues>

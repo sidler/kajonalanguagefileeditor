@@ -279,9 +279,9 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         jToolBar1.setRollover(true);
         jToolBar1.setName("jToolBar1"); // NOI18N
 
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(de.mulchprod.kajona.languageeditor.gui.KajonaLanguageEditorGuiApp.class).getContext().getActionMap(KajonaLanguageEditorGuiView.class, this);
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(KajonaLanguageEditorGuiView.class, this);
         jButton1.setAction(actionMap.get("preferencesAction")); // NOI18N
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(de.mulchprod.kajona.languageeditor.gui.KajonaLanguageEditorGuiApp.class).getContext().getResourceMap(KajonaLanguageEditorGuiView.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(KajonaLanguageEditorGuiView.class);
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -381,6 +381,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         fileMenu.setName("fileMenu"); // NOI18N
 
         saveMenuItem.setAction(actionMap.get("saveToCoreAction")); // NOI18N
+        saveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         saveMenuItem.setIcon(resourceMap.getIcon("saveMenuItem.icon")); // NOI18N
         saveMenuItem.setText(resourceMap.getString("saveMenuItem.text")); // NOI18N
         saveMenuItem.setName("saveMenuItem"); // NOI18N

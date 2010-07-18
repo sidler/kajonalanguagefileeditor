@@ -210,6 +210,9 @@
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="de.mulchprod.kajona.languageeditor.gui.KajonaLanguageEditorGuiView" id="saveToCoreAction" methodName="saveToCoreAction"/>
                 </Property>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+S"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" resourceKey="saveMenuItem.icon"/>
                 <Property name="text" type="java.lang.String" resourceKey="saveMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="saveMenuItem" noResource="true"/>

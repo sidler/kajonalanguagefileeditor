@@ -81,6 +81,8 @@ public class KajonaLanguageEditorGuiAboutBox extends javax.swing.JDialog {
         vendorLabel.setName("vendorLabel"); // NOI18N
 
         appVendorLabel.setFont(appVendorLabel.getFont().deriveFont(appVendorLabel.getFont().getStyle() & ~java.awt.Font.BOLD));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/mulchprod/kajona/languageeditor/gui/resources/KajonaLanguageEditorGuiApp"); // NOI18N
+        appVendorLabel.setText(bundle.getString("Application.vendor")); // NOI18N
         appVendorLabel.setName("appVendorLabel"); // NOI18N
 
         homepageLabel.setFont(homepageLabel.getFont().deriveFont(homepageLabel.getFont().getStyle() & ~java.awt.Font.BOLD));
@@ -88,6 +90,7 @@ public class KajonaLanguageEditorGuiAboutBox extends javax.swing.JDialog {
         homepageLabel.setName("homepageLabel"); // NOI18N
 
         appHomepageLabel.setFont(appHomepageLabel.getFont().deriveFont(appHomepageLabel.getFont().getStyle() & ~java.awt.Font.BOLD));
+        appHomepageLabel.setText(bundle.getString("Application.homepage")); // NOI18N
         appHomepageLabel.setName("appHomepageLabel"); // NOI18N
 
         appDescLabel.setFont(resourceMap.getFont("appDescLabel.font")); // NOI18N
@@ -116,7 +119,7 @@ public class KajonaLanguageEditorGuiAboutBox extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(appVersionLabel)
                             .addComponent(appVendorLabel)
-                            .addComponent(appHomepageLabel)))
+                            .addComponent(appHomepageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(appTitleLabel, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(appDescLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                     .addComponent(closeButton))
@@ -142,8 +145,8 @@ public class KajonaLanguageEditorGuiAboutBox extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(homepageLabel)
-                            .addComponent(appHomepageLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                            .addComponent(appHomepageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addComponent(closeButton))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
