@@ -1,2 +1,4 @@
 #!/bin/bash
-java -jar ./dist/KajonaLanguageEditorGui-1.1.jar
+dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P )
+cd $dir
+java -jar ./dist/KajonaLanguageEditorGui-1.2.jar
