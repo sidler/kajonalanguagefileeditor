@@ -5,6 +5,7 @@
 
 package de.mulchprod.kajona.languageeditor.core.test;
 
+import com.sun.xml.internal.ws.message.saaj.SAAJHeader;
 import de.mulchprod.kajona.languageeditor.core.Filemanager;
 import de.mulchprod.kajona.languageeditor.core.Filemanager.CopySourceNotInitializedException;
 import de.mulchprod.kajona.languageeditor.core.Filemanager.LanguageCoreNotInitializedException;
@@ -55,11 +56,16 @@ public class TestFilemanager {
         ILanguageFileSet targetSet = filemanager.getAdminSets().get(filemanager.getAdminSets().size()-2);
         System.out.println("pasting before languageFileSet: "+targetSet.toString());
 
+        //get the new target-name
+        String newKeyName = targetSet.createNewValidKey(sourceKey);
+
         filemanager.pasteEntryToFileset(targetSet);
+
 
         //validate results
         for(String language : targetSet.getListOfLanguages()) {
-            assertEquals(sourceSet.getValueForKey(sourceKey, language), targetSet.getValueForKey(sourceKey, language));
+            System.out.println("comparing "+sourceKey+"@"+language+" with "+newKeyName);
+            assertEquals(sourceSet.getValueForKey(sourceKey, language), targetSet.getValueForKey(newKeyName, language));
         }
 
         System.out.println("pasting after languageFileSet: "+targetSet.toString());

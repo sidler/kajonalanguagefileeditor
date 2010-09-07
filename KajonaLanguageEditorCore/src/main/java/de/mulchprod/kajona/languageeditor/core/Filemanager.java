@@ -79,6 +79,11 @@ public class Filemanager {
           this.fileSetMarkedForCopy = null;
       }
 
+      /**
+       * Copies the passed entry to the clipboard
+       * @param sourceFileSet
+       * @param keyToCopy
+       */
       public void copyEntryByKey(ILanguageFileSet sourceFileSet, String keyToCopy) {
           this.fileSetMarkedForCopy = sourceFileSet;
           this.keyMarkedForCopy = keyToCopy;
@@ -95,11 +100,16 @@ public class Filemanager {
           }
 
           LELogger.getInstance().logInfo("pasteing to set: "+targetFileSet);
+          
+          String newKey = targetFileSet.createNewValidKey(keyMarkedForCopy);
+          System.out.println("target key will be: "+newKey);
           for(String language : fileSetMarkedForCopy.getListOfLanguages()) {
               String value = fileSetMarkedForCopy.getValueForKey(keyMarkedForCopy, language);
 
               //paste it
-              targetFileSet.updateValue(keyMarkedForCopy,  value, language);
+              
+
+              targetFileSet.updateValue(newKey,  value, language);
           }
 
           return true;

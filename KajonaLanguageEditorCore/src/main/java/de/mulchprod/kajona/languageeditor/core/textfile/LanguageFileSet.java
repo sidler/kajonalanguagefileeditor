@@ -237,5 +237,15 @@ public class LanguageFileSet implements ILanguageFileSet {
         return modulePart;
     }
 
+    @Override
+    public String createNewValidKey(String keyToCheck) {
+        if(!this.getAllKeys().contains(keyToCheck))
+            return keyToCheck;
+
+        keyToCheck += "_1";
+        LELogger.getInstance().logInfo("Key already existing, shifted to "+keyToCheck);
+        return this.createNewValidKey(keyToCheck);
+    }
+
 
 }

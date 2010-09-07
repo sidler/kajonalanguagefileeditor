@@ -38,6 +38,7 @@ public interface ILanguageFileSet {
 
     public boolean deleteKeyValue(String keyToDelete);
 
+    public String createNewValidKey(String keyToCheck);
 
     public ArrayList<String> getAllKeys();
     public String getValueForKey(String key, String language);
