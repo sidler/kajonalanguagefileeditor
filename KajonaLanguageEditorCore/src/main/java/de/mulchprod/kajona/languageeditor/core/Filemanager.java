@@ -102,13 +102,10 @@ public class Filemanager {
           LELogger.getInstance().logInfo("pasteing to set: "+targetFileSet);
           
           String newKey = targetFileSet.createNewValidKey(keyMarkedForCopy);
-          System.out.println("target key will be: "+newKey);
           for(String language : fileSetMarkedForCopy.getListOfLanguages()) {
               String value = fileSetMarkedForCopy.getValueForKey(keyMarkedForCopy, language);
 
               //paste it
-              
-
               targetFileSet.updateValue(newKey,  value, language);
           }
 
