@@ -5,7 +5,6 @@
 
 package de.mulchprod.kajona.languageeditor.core.test;
 
-import com.sun.xml.internal.ws.message.saaj.SAAJHeader;
 import de.mulchprod.kajona.languageeditor.core.Filemanager;
 import de.mulchprod.kajona.languageeditor.core.Filemanager.CopySourceNotInitializedException;
 import de.mulchprod.kajona.languageeditor.core.Filemanager.LanguageCoreNotInitializedException;
