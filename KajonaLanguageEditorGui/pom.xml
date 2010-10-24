@@ -4,14 +4,14 @@
     <groupId>de.mulchprod.kajona.languageeditor</groupId>
     <artifactId>KajonaLanguageEditorGui</artifactId>
     <packaging>jar</packaging>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.4-SNAPSHOT</version>
     <name>Kajona Language Editor Gui</name>
     <url>http://www.mulchprod.de</url>
 
     <parent>
         <groupId>de.mulchprod.kajona.languageeditor</groupId>
         <artifactId>KajonaLanguageEditor</artifactId>
-        <version>1.3-SNAPSHOT</version>
+        <version>1.4-SNAPSHOT</version>
     </parent>
 
     <build>
