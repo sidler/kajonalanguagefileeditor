@@ -36,8 +36,10 @@ public class GuiTreeNode extends DefaultMutableTreeNode {
 
     @Override
     public String toString() {
-
-        return referencingTreeNode.getNodeName();
+        String addon = "";
+        if(referencingTreeNode.getReferencingObject() != null)
+            addon = " ("+referencingTreeNode.getReferencingObject().getAllKeys().size()+")";
+        return referencingTreeNode.getNodeName()+addon;
     }
 
     public TreeNode getReferencingTreeNode() {
