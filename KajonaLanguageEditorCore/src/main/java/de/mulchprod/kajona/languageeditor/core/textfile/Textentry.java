@@ -66,7 +66,11 @@ public class Textentry implements ITextentry, Comparable<Textentry> {
         }
     }
 
-    public String getEntryAsString() {
+    public String getEntryAsString(boolean addLinebreak) {
+
+        //only append the current entry if the value is != ""
+        if(readableValue.length() == 0)
+            return "";
         
         String newKey = "$lang[\""+readableKey+"\"]";
         String newValue = "";
@@ -80,7 +84,7 @@ public class Textentry implements ITextentry, Comparable<Textentry> {
             newKey += " ";
 
 
-        return newKey + " = " + newValue;
+        return newKey + " = " + newValue + (addLinebreak ? "\n" : "");
     }
 
     @Override

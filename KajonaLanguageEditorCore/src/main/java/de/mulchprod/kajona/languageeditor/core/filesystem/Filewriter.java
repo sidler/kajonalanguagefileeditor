@@ -88,7 +88,7 @@ public class Filewriter {
                 fileContent.append("\n//non-editable entries\n");
 
                 for(Textentry entry : file.getNonEditableTextEntries().values()) {
-                    fileContent.append(entry.getEntryAsString()+"\n");
+                    fileContent.append(entry.getEntryAsString(true));
                 }
             }
 
@@ -96,7 +96,7 @@ public class Filewriter {
                 fileContent.append("\n//editable entries\n");
 
                 for(Textentry entry : file.getTextEntries().values()) {
-                    fileContent.append(entry.getEntryAsString()+"\n");
+                    fileContent.append(entry.getEntryAsString(true));
                 }
             }
 
