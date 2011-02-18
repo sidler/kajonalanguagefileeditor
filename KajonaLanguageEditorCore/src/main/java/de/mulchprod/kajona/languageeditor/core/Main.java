@@ -25,6 +25,8 @@ import de.mulchprod.kajona.languageeditor.core.Filemanager.LanguageCoreNotInitia
 import de.mulchprod.kajona.languageeditor.core.config.Configuration.ConfigNotSetException;
 import de.mulchprod.kajona.languageeditor.core.filesystem.Filesystem.FolderNotExistingException;
 import de.mulchprod.kajona.languageeditor.core.textfile.ILanguageFileSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -38,60 +40,62 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
+       // try {
             Filemanager manager = new Filemanager();
-            
-            manager.readProjectFiles();
-            manager.printFiles();
 
-           
-            System.out.println("Admin-languages: "+manager.getListOfAdminLanguages());
-            System.out.println("Portal-languages: "+manager.getListOfPortalLanguages());
-            
-            for(ILanguageFileSet fileSet : manager.getPortalSets()) {
-                //System.out.println("Keys in "+fileSet.getArea()+"/"+fileSet.getModule()+"/"+fileSet.getModulePart()+":");
-                //for(String key : fileSet.getAllKeys())
-                    //System.out.println("  --> "+key+" valid in all languages: "+fileSet.isKeyValidForAllLanguages(key));
+            System.out.println("Kajona Language Editor Core, Build "+manager.getBuildVersion());
+            System.out.println("(c) Stefan Idler, sidler@mulchprod.de\n");
+
+            if(args.length < 3) {
+                System.out.println("No argument specified. Usage:");
+
+                System.out.println("formatLangfiles --projectFolder <path>");
+                
+               
             }
-            
-            //key = manager.getPortalSets().get(2).getAllKeys().get(0);
-            //manager.getPortalSets().get(2).deleteKeyValue(key);
 
-            /*
-            String key = manager.getAdminSets().get(10).getAllKeys().get(0);
+            else {
+                //loop args and build infos
+                String command = args[0];
+                String folder = "";
 
-            manager.getAdminSets().get(10).updateValue(key, "!!!!new valuqe!!!!", manager.getListOfAdminLanguages().get(0));
-            manager.getAdminSets().get(10).updateKeyValue(key, "!!! new key !!!");
-            
-            
-            
-            String newKey = "alleJahreWieder";
-            String newValue = "hans dampf";
-            manager.getPortalSets().get(4).updateValue("neu neu", "test", "en");
+                if(args[1].equals("--projectFolder"))
+                    folder = args[2];
 
 
+                if(command.equals("--formatLangfiles"))
+                    formatLangFiles(folder);
 
-            manager.writeProjectFiles();
-            */
-
-            
-            System.out.println("Admin-languages: "+manager.getListOfAdminLanguages());
-            System.out.println("Portal-languages: "+manager.getListOfPortalLanguages());
-            System.out.println("Build: "+manager.getBuildVersion());
-
-            //System.out.println("Creating new file-set for language fr");
-            //manager.createNewLanguageSet("pt");
-            
-            
-        } catch (LanguageCoreNotInitializedException ex) {
-            System.out.println(ex);
-        } catch (FolderNotExistingException ex) {
-            System.out.println(ex);
-        } catch (ConfigNotSetException ex) {
-            System.out.println(ex);
-        }
-            
+            }
         
+    }
+
+
+
+    private static void formatLangFiles(String sourcePath) {
+        try {
+            System.out.println("Formatting lang files, project-path: " + sourcePath);
+            if (sourcePath.equals("")) {
+                System.out.println("sourcepath missing");
+                return;
+            }
+            System.out.println("Starting filemanager...");
+            Filemanager filemanager = new Filemanager();
+            System.out.println("Setting sourcepath...");
+            filemanager.setKajonaProjectPath(sourcePath);
+            System.out.println("Reading project files...");
+            filemanager.readProjectFiles();
+
+            System.out.println("Writing project files...");
+            filemanager.writeProjectFiles(true);
+
+
+        } catch (ConfigNotSetException ex) {
+            System.out.println("Configuration not set: "+ex.getMessage());
+        } catch (FolderNotExistingException ex) {
+            System.out.println("Error reading project files: "+ex.getMessage());
+        }
+
     }
 
 }

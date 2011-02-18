@@ -41,7 +41,7 @@ import java.util.Calendar;
  */
 public class Filewriter {
 
-    public boolean writeTextfilesToFiles(ArrayList<LanguageFileSet> filesets, String baseFolder) {
+    public boolean writeTextfilesToFiles(ArrayList<LanguageFileSet> filesets, String baseFolder, boolean forceWrite) {
 
         for(LanguageFileSet singleFileSet : filesets) {
             LELogger.getInstance().logInfo("Investigating set "+singleFileSet.getArea()+"/"+singleFileSet.getModule()+"/"+singleFileSet.getModulePart());
@@ -51,7 +51,7 @@ public class Filewriter {
                 LELogger.getInstance().logInfo("File "+singleFile.getFilename()+" contains "+singleFile.getTextEntries().size()+" entries");
                 LELogger.getInstance().logInfo("Original Path: "+singleFile.getSourcePath());
 
-                if(singleFile.isFileHasChanged()) {
+                if(singleFile.isFileHasChanged() || forceWrite) {
                     this.writeFile(singleFile);
                     singleFile.setFileHasChanged(false);
                 }
@@ -65,6 +65,10 @@ public class Filewriter {
         
         
         return false;
+    }
+
+    public boolean writeTextfilesToFiles(ArrayList<LanguageFileSet> filesets, String baseFolder) {
+        return writeTextfilesToFiles(filesets, baseFolder, false);
     }
 
 

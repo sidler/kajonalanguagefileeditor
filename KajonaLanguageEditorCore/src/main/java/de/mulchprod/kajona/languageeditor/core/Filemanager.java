@@ -195,9 +195,13 @@ public class Filemanager {
 
 
       public boolean writeProjectFiles() {
+          return writeProjectFiles(false);
+      }
+      
+      public boolean writeProjectFiles(boolean forceWrite) {
           Filewriter writer = new Filewriter();
-          writer.writeTextfilesToFiles(adminSets, "");
-          writer.writeTextfilesToFiles(portalSets, "");
+          writer.writeTextfilesToFiles(adminSets, "", forceWrite);
+          writer.writeTextfilesToFiles(portalSets, "", forceWrite);
 
           return false;
       }

@@ -57,7 +57,7 @@ public class Configuration {
     private void readConfigFromFile() {
         String userDir = System.getProperty("user.home");
         File configFile = new File(userDir+File.separator+configFilename);
-        System.out.println("config File: "+configFile);
+        //System.out.println("config File: "+configFile);
         try {
             propertySet = new Properties();
             propertySet.load(new FileReader(configFile));
