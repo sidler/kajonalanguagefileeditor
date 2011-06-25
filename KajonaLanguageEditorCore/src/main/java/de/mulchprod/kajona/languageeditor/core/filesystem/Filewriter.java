@@ -88,13 +88,7 @@ public class Filewriter {
             fileContent.append("\n//Edited with Kajona Language Editor GUI, see www.kajona.de and www.mulchprod.de for more information\n");
             fileContent.append("//Kajona Language Editor Core Build "+new Filemanager().getBuildVersion()+"\n");
 
-            if(file.getNonEditableTextEntries().size() > 0) {
-                fileContent.append("\n//non-editable entries\n");
-
-                for(Textentry entry : file.getNonEditableTextEntries().values()) {
-                    fileContent.append(entry.getEntryAsString(true));
-                }
-            }
+            
 
             if(file.getTextEntries().size() > 0) {
                 fileContent.append("\n//editable entries\n");
@@ -104,6 +98,14 @@ public class Filewriter {
                 }
             }
 
+            
+            if(file.getNonEditableTextEntries().size() > 0) {
+                fileContent.append("\n//non-editable entries\n");
+
+                for(Textentry entry : file.getNonEditableTextEntries().values()) {
+                    fileContent.append(entry.getEntryAsString(true));
+                }
+            }
 
             fileContent.append("?>");
 
