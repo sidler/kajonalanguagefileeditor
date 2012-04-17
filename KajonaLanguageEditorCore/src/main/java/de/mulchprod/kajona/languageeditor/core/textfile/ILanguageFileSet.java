@@ -42,6 +42,8 @@ public interface ILanguageFileSet {
 
     public ArrayList<String> getAllKeys();
     public String getValueForKey(String key, String language);
+    
+    public String getFilenameForLanguage(String language);
 
     public boolean isKeyValidForAllLanguages(String keyToTest);
 

@@ -22,6 +22,7 @@
 package de.mulchprod.kajona.languageeditor.core.textfile;
 
 import de.mulchprod.kajona.languageeditor.core.config.Configuration;
+import de.mulchprod.kajona.languageeditor.core.config.Configuration.ConfigNotSetException;
 import de.mulchprod.kajona.languageeditor.core.logger.LELogger;
 import de.mulchprod.kajona.languageeditor.core.textfile.Textentry.EntryNotSetException;
 import de.mulchprod.kajona.languageeditor.core.textfile.Textfile.KeyNotFoundException;
@@ -29,6 +30,8 @@ import de.mulchprod.kajona.languageeditor.core.textfile.Textfile.KeyNotUniqueExc
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -166,6 +169,18 @@ public class LanguageFileSet implements ILanguageFileSet {
             }
         } catch (KeyNotFoundException ex) {
             LELogger.getInstance().logInfo(ex.getMessage());
+        }
+        return "";
+    }
+    
+    public String getFilenameForLanguage(String language) {
+        for (Textfile file : fileMap.values()) {
+            if(file.getLanguage().equals(language))
+                try {
+                return file.getSourcePath().replace(Configuration.getInstance().getKajonaProjectPath(), "");
+            } catch (ConfigNotSetException ex) {
+                LELogger.getInstance().logInfo(ex.getMessage());
+            }
         }
         return "";
     }
