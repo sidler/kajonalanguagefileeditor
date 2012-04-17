@@ -38,7 +38,7 @@ public class TestFilemanager {
         
 
         outer:
-        for(ILanguageFileSet fileSet : filemanager.getAdminSets()) {
+        for(ILanguageFileSet fileSet : filemanager.getLangSets()) {
             for(String key : fileSet.getAllKeys()) {
                 sourceKey = key;
                 sourceSet = fileSet;
@@ -52,7 +52,7 @@ public class TestFilemanager {
         filemanager.copyEntryByKey(sourceSet, sourceKey);
 
         //and paste it
-        ILanguageFileSet targetSet = filemanager.getAdminSets().get(filemanager.getAdminSets().size()-2);
+        ILanguageFileSet targetSet = filemanager.getLangSets().get(filemanager.getLangSets().size()-2);
         System.out.println("pasting before languageFileSet: "+targetSet.toString());
 
         //get the new target-name
@@ -79,7 +79,7 @@ public class TestFilemanager {
         ILanguageFileSet sourceSet = null;
 
         outer:
-        for(ILanguageFileSet fileSet : filemanager.getAdminSets()) {
+        for(ILanguageFileSet fileSet : filemanager.getLangSets()) {
             for(String key : fileSet.getAllKeys()) {
                 sourceKey = key;
                 sourceSet = fileSet;

@@ -50,7 +50,7 @@ public interface ILanguageFileSet {
     public ArrayList<String> getListOfLanguages();
     
     public String getModule();
-    public String getArea();
+    
     public String getModulePart();
 
 }

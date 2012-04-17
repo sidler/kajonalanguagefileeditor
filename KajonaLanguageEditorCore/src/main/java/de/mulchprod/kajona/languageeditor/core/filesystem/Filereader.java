@@ -39,14 +39,13 @@ import java.io.InputStreamReader;
  */
 public class Filereader {
 
-    public Textfile generateTextfileFromFile(File sourceFile, String area) {
+    public Textfile generateTextfileFromFile(File sourceFile) {
 
         //Generate the file itself
         Textfile textfile = new Textfile();
         
         try {
             textfile = getTextfileFromFileObject(sourceFile);
-            textfile.setArea(area);
             
             //read source-file
             BufferedReader filereader = new BufferedReader(new InputStreamReader(new FileInputStream(sourceFile), "UTF8"));

@@ -21,10 +21,9 @@
 
 package de.mulchprod.kajona.languageeditor.core;
 
-import de.mulchprod.kajona.languageeditor.core.Filemanager.LanguageCoreNotInitializedException;
 import de.mulchprod.kajona.languageeditor.core.config.Configuration.ConfigNotSetException;
 import de.mulchprod.kajona.languageeditor.core.filesystem.Filesystem.FolderNotExistingException;
-import de.mulchprod.kajona.languageeditor.core.textfile.ILanguageFileSet;
+import de.mulchprod.kajona.languageeditor.core.logger.LELogger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,37 +39,67 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       // try {
-            Filemanager manager = new Filemanager();
+       
+        Filemanager manager = new Filemanager();
 
-            System.out.println("Kajona Language Editor Core, Build "+manager.getBuildVersion());
-            System.out.println("(c) Stefan Idler, sidler@mulchprod.de\n");
+        System.out.println("Kajona Language Editor Core, Build "+manager.getBuildVersion());
+        System.out.println("Modified version for Kajona V4 projects.\n");
+        System.out.println("(c) Stefan Idler, sidler@mulchprod.de\n");
 
-            if(args.length < 3) {
-                System.out.println("No argument specified. Usage:");
+        if(args.length < 3) {
+            System.out.println("No argument specified. Usage:");
 
-                System.out.println("formatLangfiles --projectFolder <path>");
-                
-               
-            }
-
-            else {
-                //loop args and build infos
-                String command = args[0];
-                String folder = "";
-
-                if(args[1].equals("--projectFolder"))
-                    folder = args[2];
+            System.out.println("formatLangfiles --projectFolder <path>");
 
 
-                if(command.equals("--formatLangfiles"))
-                    formatLangFiles(folder);
+        }
 
-            }
+        else {
+            //loop args and build infos
+            String command = args[0];
+            String folder = "";
+
+            if(args[1].equals("--projectFolder"))
+                folder = args[2];
+
+
+            if(command.equals("--formatLangfiles"))
+                formatLangFiles(folder);
+
+            if(command.equals("--printLangfiles"))
+                printLangFiles(folder);
+
+        }
         
     }
 
 
+    private static void printLangFiles(String sourcePath) {
+        try {
+            if (sourcePath.equals("")) {
+                    System.out.println("sourcepath missing");
+                    return;
+                }
+                LELogger.getInstance().setLogToConsole(true);
+            
+                System.out.println("Starting filemanager...");
+                Filemanager filemanager = new Filemanager();
+                System.out.println("Setting sourcepath...");
+                filemanager.setKajonaProjectPath(sourcePath);
+                System.out.println("Reading project files...");
+                filemanager.readProjectFiles();
+                
+                filemanager.printFiles();
+                
+        } catch (ConfigNotSetException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FolderNotExistingException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+    }
+    
+    
 
     private static void formatLangFiles(String sourcePath) {
         try {

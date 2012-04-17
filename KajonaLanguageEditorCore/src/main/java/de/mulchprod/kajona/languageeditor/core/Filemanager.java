@@ -46,8 +46,7 @@ import java.util.TreeMap;
 public class Filemanager {
 
 
-      private ArrayList<LanguageFileSet> adminSets = new ArrayList<LanguageFileSet>();
-      private ArrayList<LanguageFileSet> portalSets = new ArrayList<LanguageFileSet>();
+      private ArrayList<LanguageFileSet> langSets = new ArrayList<LanguageFileSet>();
       private boolean bitInitialized = false;
 
 
@@ -60,19 +59,13 @@ public class Filemanager {
       }
 
       public boolean needToSave() {
-          for(LanguageFileSet set : adminSets) {
-            if(set.needToSave())
-                return true;
-          }
-
-          for(LanguageFileSet set : portalSets) {
+          for(LanguageFileSet set : langSets) {
             if(set.needToSave())
                 return true;
           }
 
           return false;
       }
-
 
       public void resetCopyKey() {
           this.keyMarkedForCopy = null;
@@ -119,13 +112,9 @@ public class Filemanager {
        */
       public void createNewLanguageSet(String languageName) {
           LELogger.getInstance().logInfo("Creating new fileSets for language "+languageName);
-          //admin
-          LELogger.getInstance().logInfo("Starting to create language files for admin");
-          createLanguageSetHelper(languageName, adminSets);
-
-          //portal
-          LELogger.getInstance().logInfo("Starting to create language files for portal");
-          createLanguageSetHelper(languageName, portalSets);
+        
+          LELogger.getInstance().logInfo("Starting to create language files ");
+          createLanguageSetHelper(languageName, langSets);
       }
 
       private void createLanguageSetHelper (String languageName, ArrayList<LanguageFileSet> fileSet) {
@@ -171,20 +160,9 @@ public class Filemanager {
           Configuration.getInstance().writeConfigToFile();
       }
 
-      public ArrayList<String> getListOfPortalLanguages() {
+      public ArrayList<String> getListOfLanguages() {
           ArrayList<String> returnList = new ArrayList<String>();
-          for(ILanguageFileSet set : portalSets) {
-              for(String language : set.getListOfLanguages())
-                  if(!returnList.contains(language))
-                      returnList.add(language);
-          }
-
-          return returnList;
-      }
-
-      public ArrayList<String> getListOfAdminLanguages() {
-          ArrayList<String> returnList = new ArrayList<String>();
-          for(ILanguageFileSet set : adminSets) {
+          for(ILanguageFileSet set : langSets) {
               for(String language : set.getListOfLanguages())
                   if(!returnList.contains(language))
                       returnList.add(language);
@@ -194,97 +172,69 @@ public class Filemanager {
       }
 
 
-      public boolean writeProjectFiles() {
-          return writeProjectFiles(false);
+      public void writeProjectFiles() {
+          writeProjectFiles(false);
       }
       
-      public boolean writeProjectFiles(boolean forceWrite) {
+      public void writeProjectFiles(boolean forceWrite) {
           Filewriter writer = new Filewriter();
-          writer.writeTextfilesToFiles(adminSets, "", forceWrite);
-          writer.writeTextfilesToFiles(portalSets, "", forceWrite);
-
-          return false;
+          writer.writeTextfilesToFiles(langSets, "", forceWrite);
+          
       }
 
 
 
       public void readProjectFiles() throws ConfigNotSetException, FolderNotExistingException {
 
-          TreeMap<String, Textfile> adminFiles = new TreeMap<String, Textfile>();
-          TreeMap<String, Textfile> portalFiles = new TreeMap<String, Textfile>();
-
-
+          TreeMap<String, Textfile> langFiles = new TreeMap<String, Textfile>();
 
           Configuration config = Configuration.getInstance();
           Filesystem filesystem = new Filesystem();
           LanguageFileSetManager setManager =  new LanguageFileSetManager();
 
           //set up admin-files
-          String adminFolder = config.getKajonaProjectPath()+config.getKajonaTextFolder()+config.getAdminFolder();
+          //load the list of modules installed
+          ArrayList<File> coreModules = filesystem.getFoldersForFolder(config.getKajonaProjectPath()+config.getKajonaCoreFolder());
+          for(File singleModule : coreModules) {
+          
+              if(!(new File(singleModule+config.getKajonaTextFolder())).exists())
+                  continue;
+              
+              ArrayList<File> moduleFolders = filesystem.getFoldersForFolder(singleModule+config.getKajonaTextFolder());
+              for(File singleFolder : moduleFolders) {
+                  LELogger.getInstance().logInfo("Scanning "+singleFolder.getAbsolutePath());
+                  ArrayList<File> textFiles = filesystem.getPhpFilesInFolder(singleFolder.getAbsolutePath());
+                  for(File singleFile : textFiles) {
+                      LELogger.getInstance().logInfo(" Found textfile "+singleFile.getName());
 
-          ArrayList<File> moduleFolders = filesystem.getFoldersForFolder(adminFolder);
-          for(File singleFolder : moduleFolders) {
-              LELogger.getInstance().logInfo("Scanning "+singleFolder.getAbsolutePath());
-              ArrayList<File> textFiles = filesystem.getPhpFilesInFolder(singleFolder.getAbsolutePath());
-              for(File singleFile : textFiles) {
-                  LELogger.getInstance().logInfo(" Found textfile "+singleFile.getName());
-
-                  //set up the file-instance
-                  Filereader filereader = new Filereader();
-                  Textfile textfile = filereader.generateTextfileFromFile(singleFile, "admin");
-                  adminFiles.put(textfile.getSourcePath(), textfile);
+                      //set up the file-instance
+                      Filereader filereader = new Filereader();
+                      Textfile textfile = filereader.generateTextfileFromFile(singleFile);
+                      langFiles.put(textfile.getSourcePath(), textfile);
+                  }
               }
+          
           }
 
 
-          //set up portal-files
-          String portalFolder = config.getKajonaProjectPath()+config.getKajonaTextFolder()+config.getPortalFolder();
-
-          moduleFolders = filesystem.getFoldersForFolder(portalFolder);
-          for(File singleFolder : moduleFolders) {
-              LELogger.getInstance().logInfo("Scanning "+singleFolder.getAbsolutePath());
-              ArrayList<File> textFiles = filesystem.getPhpFilesInFolder(singleFolder.getAbsolutePath());
-              for(File singleFile : textFiles) {
-                  LELogger.getInstance().logInfo(" Found textfile "+singleFile.getName());
-
-                  //set up the file-instance
-                  Filereader filereader = new Filereader();
-                  Textfile textfile = filereader.generateTextfileFromFile(singleFile, "portal");
-                  portalFiles.put(textfile.getSourcePath(), textfile);
-              }
-          }
-
-
-          this.adminSets = setManager.generateLanguageFileSet(adminFiles);
-          this.portalSets = setManager.generateLanguageFileSet(portalFiles);
+          this.langSets = setManager.generateLanguageFileSet(langFiles);
           this.bitInitialized = true;
       }
 
-    public ArrayList<? extends ILanguageFileSet> getAdminSets() throws LanguageCoreNotInitializedException {
+    public ArrayList<? extends ILanguageFileSet> getLangSets() throws LanguageCoreNotInitializedException {
         if(!bitInitialized)
             throw new LanguageCoreNotInitializedException("Core not initialized, run readProjectFiles() before!");
         
-        return this.adminSets;
+        return this.langSets;
         
     }
-
-    public ArrayList<? extends ILanguageFileSet> getPortalSets() throws LanguageCoreNotInitializedException {
-        if(!bitInitialized)
-            throw new LanguageCoreNotInitializedException("Core not initialized, run readProjectFiles() before!");
-
-        return this.portalSets;
-    }
-
 
 
     public void printFiles() {
           LELogger.getInstance().logInfo("Dumping files found: ");
-          LELogger.getInstance().logInfo("Admin files: ");
-          for(LanguageFileSet set : adminSets)
+          for(LanguageFileSet set : langSets)
               LELogger.getInstance().logInfo(set+"");
-          LELogger.getInstance().logInfo("Portal files: ");
-          for(LanguageFileSet set : portalSets)
-              LELogger.getInstance().logInfo(set+"");
+          
 
     }
 

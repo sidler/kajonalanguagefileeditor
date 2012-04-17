@@ -39,7 +39,6 @@ public class Textfile implements ITextfile {
     private String sourcePath;
     private String filename;
     private String modulepart;
-    private String area;
 
     private File fileObject;
 
@@ -61,7 +60,7 @@ public class Textfile implements ITextfile {
         if(filenameparts.length == 3) {
 
             String foldername = fileObject.getPath().replace("\\", "/").replace("/"+fileObject.getName(), "");
-            String rawModulepart = foldername.substring(foldername.lastIndexOf("modul_")+6);
+            String rawModulepart = foldername.substring(foldername.lastIndexOf("module_")+7);
 
             this.setLanguage(filenameparts[2]);
             this.setModule(rawModulepart);
@@ -270,14 +269,6 @@ public class Textfile implements ITextfile {
 
     public TreeMap<String, Textentry> getTextEntries() {
         return textEntries;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
     }
 
     public boolean isFileHasChanged() {

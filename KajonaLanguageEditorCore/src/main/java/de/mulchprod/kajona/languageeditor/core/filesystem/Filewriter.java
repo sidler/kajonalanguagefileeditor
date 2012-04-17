@@ -44,7 +44,7 @@ public class Filewriter {
     public boolean writeTextfilesToFiles(ArrayList<LanguageFileSet> filesets, String baseFolder, boolean forceWrite) {
 
         for(LanguageFileSet singleFileSet : filesets) {
-            LELogger.getInstance().logInfo("Investigating set "+singleFileSet.getArea()+"/"+singleFileSet.getModule()+"/"+singleFileSet.getModulePart());
+            LELogger.getInstance().logInfo("Investigating set "+singleFileSet.getModule()+"/"+singleFileSet.getModulePart());
 
             for(Textfile singleFile : singleFileSet.getFileMap().values()) {
 
@@ -58,7 +58,7 @@ public class Filewriter {
                 
                 //if file was saved, reinit again
                 Filereader reader = new Filereader();
-                singleFile = reader.generateTextfileFromFile(new File(singleFile.getSourcePath()), singleFile.getArea());
+                singleFile = reader.generateTextfileFromFile(new File(singleFile.getSourcePath()));
             }
 
         }

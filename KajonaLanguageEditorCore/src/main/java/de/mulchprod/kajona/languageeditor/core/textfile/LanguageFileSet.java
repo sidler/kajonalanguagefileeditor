@@ -39,15 +39,12 @@ public class LanguageFileSet implements ILanguageFileSet {
     private String module;
     private String modulePart;
 
-    private String area;
-
     private HashMap<String, Textfile>fileMap = new HashMap<String, Textfile>();
 
 
     public LanguageFileSet(Textfile file) {
         this.module = file.getModule();
         this.modulePart = file.getModulepart();
-        this.area = file.getArea();
         this.addTextfile(file);
     }
 
@@ -55,7 +52,7 @@ public class LanguageFileSet implements ILanguageFileSet {
 
         //check, if target language is not yet exisiting
         if(this.getListOfLanguages().contains(newLanguage)) {
-            LELogger.getInstance().logInfo("Language "+newLanguage+" for fileSet "+this.area+"/"+this.module+"/"+this.modulePart+" already existing!");
+            LELogger.getInstance().logInfo("Language "+newLanguage+" for fileSet "+this.module+"/"+this.modulePart+" already existing!");
             return;
         }
 
@@ -69,7 +66,6 @@ public class LanguageFileSet implements ILanguageFileSet {
 
             newFile.setModule(masterFile.getModule());
             newFile.setModulepart(masterFile.getModulepart());
-            newFile.setArea(masterFile.getArea());
 
             newFile.setLanguage(newLanguage);
             newFile.setSourcePath(masterFile.getSourcePath().replace(masterFile.getLanguage()+".php", newLanguage+".php"));
@@ -213,7 +209,7 @@ public class LanguageFileSet implements ILanguageFileSet {
 
     @Override
     public String toString() {
-        return "LanguageFileSet: "+area+"/"+module+"/"+modulePart+"\n"+
+        return "LanguageFileSet: "+module+"/"+modulePart+"\n"+
                 "  nrOfFiles included: "+this.fileMap.size();
     }
 
@@ -223,10 +219,6 @@ public class LanguageFileSet implements ILanguageFileSet {
 
     public HashMap<String, Textfile> getFileMap() {
         return fileMap;
-    }
-
-    public String getArea() {
-        return area;
     }
 
     public String getModule() {

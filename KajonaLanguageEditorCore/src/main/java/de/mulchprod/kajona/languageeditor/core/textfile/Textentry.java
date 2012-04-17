@@ -29,12 +29,7 @@ import de.mulchprod.kajona.languageeditor.core.CoreBaseException;
  */
 public class Textentry implements ITextentry, Comparable<Textentry> {
 
-    /*private String longKey;
-    private String longValue;
 
-    private String readableOriginalKey;
-    private String readableOriginalValue;
-    */
     private String readableKey = "";
     private String readableValue = "";
     
@@ -110,6 +105,7 @@ public class Textentry implements ITextentry, Comparable<Textentry> {
         this.readableValue = readableValue;
     }
 
+    @Override
     public int compareTo(Textentry o) {
         return o.getReadableKey().compareTo(this.getReadableKey());
     }
@@ -121,7 +117,6 @@ public class Textentry implements ITextentry, Comparable<Textentry> {
     public void setIsEditableEntry(boolean isEditableEntry) {
         this.isEditableEntry = isEditableEntry;
     }
-
     
     
     public class EntryNotChangedException extends CoreBaseException {

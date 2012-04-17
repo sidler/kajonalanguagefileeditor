@@ -53,7 +53,7 @@ public class Filesystem {
         File[] folders = folder.listFiles();
         ArrayList<File> returnList = new ArrayList<File>();
         for(File file : folders) {
-            if(file.isDirectory())
+            if(file.isDirectory() && !file.getName().contains(".svn"))
                 returnList.add(file);
         }
 

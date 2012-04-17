@@ -153,6 +153,19 @@ public class Configuration {
     }
 
     
+    public String getKajonaCoreFolder() {
+        if(propertySet.containsKey("kajonaCoreFolder"))
+            return propertySet.getProperty("kajonaCoreFolder");
+        else
+            return "/core";
+    }
+
+    public void setKajonaCoreFolder(String kajonaTextFolder) {
+        propertySet.setProperty("kajonaCoreFolder", kajonaTextFolder);
+    }
+    
+    
+    
     public class ConfigNotSetException extends CoreBaseException {
         public ConfigNotSetException(String s) { super(s); }
     }

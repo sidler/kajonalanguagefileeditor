@@ -37,7 +37,7 @@ public class LanguageFileSetManager {
         ArrayList<LanguageFileSet> returnFileSet = new ArrayList<LanguageFileSet>();
 
         for(Textfile file : fileMap.values()) {
-            LanguageFileSet fileSet = getFileSetFromList(file.getModule(), file.getModulepart(), file.getArea(), returnFileSet);
+            LanguageFileSet fileSet = getFileSetFromList(file.getModule(), file.getModulepart(), returnFileSet);
             if(fileSet != null) {
                 fileSet.addTextfile(file);
             }
@@ -52,12 +52,11 @@ public class LanguageFileSetManager {
 
 
 
-    public LanguageFileSet getFileSetFromList(String module, String modulepart, String area, List<LanguageFileSet> set) {
+    public LanguageFileSet getFileSetFromList(String module, String modulepart, List<LanguageFileSet> set) {
         //LELogger.getInstance().logInfo("searching for: "+module+"/"+modulepart+"/"+area);
 
         for(LanguageFileSet fileSet : set) {
-            if(   fileSet.getArea().equals(area)
-               && fileSet.getModule().equals(module)
+            if(   fileSet.getModule().equals(module)
                && fileSet.getModulePart().equals(modulepart)) {
                 
                 return fileSet;
