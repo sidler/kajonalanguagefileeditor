@@ -236,11 +236,10 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        adminTreeScrollPane = new javax.swing.JScrollPane();
-        langTree = new javax.swing.JTree();
         jScrollPane1 = new javax.swing.JScrollPane();
         textValuePanel = new javax.swing.JPanel();
+        adminTreeScrollPane = new javax.swing.JScrollPane();
+        langTree = new javax.swing.JTree();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         saveMenuItem = new javax.swing.JMenuItem();
@@ -297,27 +296,6 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         jSplitPane1.setDividerLocation(160);
         jSplitPane1.setName("jSplitPane1"); // NOI18N
 
-        jTabbedPane1.setName("jTabbedPane1"); // NOI18N
-
-        adminTreeScrollPane.setBorder(null);
-        adminTreeScrollPane.setName("adminTreeScrollPane"); // NOI18N
-
-        langTree.setCellRenderer(new KeyTreeCellRenderer());
-        langTree.setName("langTree"); // NOI18N
-        langTree.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                treeMousePressedHandler(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                treeMousePressedHandler(evt);
-            }
-        });
-        adminTreeScrollPane.setViewportView(langTree);
-
-        jTabbedPane1.addTab(resourceMap.getString("adminTreeScrollPane.TabConstraints.tabTitle"), adminTreeScrollPane); // NOI18N
-
-        jSplitPane1.setLeftComponent(jTabbedPane1);
-
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
         textValuePanel.setName("textValuePanel"); // NOI18N
@@ -336,6 +314,22 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         jScrollPane1.setViewportView(textValuePanel);
 
         jSplitPane1.setRightComponent(jScrollPane1);
+
+        adminTreeScrollPane.setName("adminTreeScrollPane"); // NOI18N
+
+        langTree.setCellRenderer(new KeyTreeCellRenderer());
+        langTree.setName("langTree"); // NOI18N
+        langTree.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                treeMousePressedHandler(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                treeMousePressedHandler(evt);
+            }
+        });
+        adminTreeScrollPane.setViewportView(langTree);
+
+        jSplitPane1.setLeftComponent(adminTreeScrollPane);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -919,7 +913,6 @@ public class KajonaLanguageEditorGuiView extends FrameView {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTree langTree;
     private javax.swing.JPopupMenu leafPopupMenu;

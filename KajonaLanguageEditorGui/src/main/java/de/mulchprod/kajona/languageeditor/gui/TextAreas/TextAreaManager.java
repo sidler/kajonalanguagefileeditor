@@ -96,6 +96,17 @@ public class TextAreaManager {
             tempScrollPane.setViewportView(label);
             panesToAdd.add(tempScrollPane);
             
+            
+            tempScrollPane = new javax.swing.JScrollPane();
+            JLabel label2 = new JLabel();
+            label2.setText(selectedSet.getFilenameForLanguage(lang));
+            label2.setFont(label2.getFont().deriveFont(new Float(9)));
+            
+            tempScrollPane.setBorder(BorderFactory.createEmptyBorder());
+            tempScrollPane.setViewportView(label2);
+            panesToAdd.add(tempScrollPane);
+    
+            
 
             tempScrollPane = new javax.swing.JScrollPane();
 
