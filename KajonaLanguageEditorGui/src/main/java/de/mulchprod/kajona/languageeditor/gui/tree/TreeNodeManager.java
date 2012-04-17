@@ -33,13 +33,11 @@ public class TreeNodeManager {
 
     private static TreeNodeManager instance = null;
 
-    private HashMap<String, TreeNode> adminModuleNodes = new HashMap<String, TreeNode>();
-    private HashMap<String, TreeNode> portalModuleNodes = new HashMap<String, TreeNode>();
+    private HashMap<String, TreeNode> langModuleNodes = new HashMap<String, TreeNode>();
 
 
     public void resetCacheSets() {
-        adminModuleNodes.clear();
-        portalModuleNodes.clear();
+        langModuleNodes.clear();
     }
 
     private TreeNodeManager() {
@@ -52,14 +50,10 @@ public class TreeNodeManager {
         return instance;
     }
 
-    public TreeNode getOrCreateModuleNode(String key, AreaType area) {
+    public TreeNode getOrCreateModuleNode(String key) {
 
         HashMap<String, TreeNode> nodeSet = new HashMap<String, TreeNode>();
-
-        if(area == AreaType.ADMIN)
-            nodeSet = adminModuleNodes;
-        else if(area == AreaType.PORTAL)
-            nodeSet = portalModuleNodes;
+        nodeSet = langModuleNodes;
 
         if(nodeSet.containsKey(key)) {
             return nodeSet.get(key);

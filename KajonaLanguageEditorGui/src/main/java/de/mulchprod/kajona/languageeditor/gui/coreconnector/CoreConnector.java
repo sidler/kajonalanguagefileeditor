@@ -28,7 +28,6 @@ import de.mulchprod.kajona.languageeditor.core.config.Configuration.ConfigNotSet
 import de.mulchprod.kajona.languageeditor.core.filesystem.Filesystem.FolderNotExistingException;
 import de.mulchprod.kajona.languageeditor.core.logger.ILELoggingListener;
 import de.mulchprod.kajona.languageeditor.core.textfile.ILanguageFileSet;
-import de.mulchprod.kajona.languageeditor.gui.tree.AreaType;
 import de.mulchprod.kajona.languageeditor.gui.tree.GuiTreeNode;
 import de.mulchprod.kajona.languageeditor.gui.tree.TreeNode;
 import de.mulchprod.kajona.languageeditor.gui.tree.TreeNodeManager;
@@ -134,12 +133,8 @@ public class CoreConnector {
     }
     
 
-    public ArrayList<String> getAdminLanguages() {
-        return filemanager.getListOfAdminLanguages();
-    }
-
-    public ArrayList<String> getPortalLanguages() {
-        return filemanager.getListOfPortalLanguages();
+    public ArrayList<String> getLanguages() {
+        return filemanager.getListOfLanguages();
     }
 
     public int getStringMinLength() {
@@ -173,41 +168,13 @@ public class CoreConnector {
         filemanager.saveSetttings();
     }
 
-    public void initPortalTree(JTree tree) {
+    public void initLangTree(JTree tree) {
         ArrayList<TreeNode> moduleNodes = new ArrayList<TreeNode>();
         try {
             DefaultMutableTreeNode newRoot = new DefaultMutableTreeNode("");
-            for (ILanguageFileSet singleSet : filemanager.getPortalSets()) {
+            for (ILanguageFileSet singleSet : filemanager.getLangSets()) {
                 //create module-nodes
-                TreeNode moduleNode = treeNodeManager.getOrCreateModuleNode(singleSet.getModule(), AreaType.PORTAL);
-                TreeNode modulePartNode = treeNodeManager.getOrCreateNode(singleSet.getModulePart(), moduleNode, singleSet);
-                //loop the key-nodes
-                for(String key : singleSet.getAllKeys()) {
-                    treeNodeManager.getOrCreateNode(key, modulePartNode, singleSet);
-                }
-                if(!moduleNodes.contains(moduleNode))
-                    moduleNodes.add(moduleNode);
-                
-            }
-            for(TreeNode moduleNode : moduleNodes)
-                newRoot.add(getInternalHierachyAsGuiNodes(moduleNode));
-            
-            DefaultTreeModel treemodel = (DefaultTreeModel)tree.getModel();
-            treemodel.setRoot(newRoot);
-            treemodel.reload();
-            
-        } catch (LanguageCoreNotInitializedException ex) {
-            Logger.getLogger(CoreConnector.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void initAdminTree(JTree tree) {
-        ArrayList<TreeNode> moduleNodes = new ArrayList<TreeNode>();
-        try {
-            DefaultMutableTreeNode newRoot = new DefaultMutableTreeNode("");
-            for (ILanguageFileSet singleSet : filemanager.getAdminSets()) {
-                //create module-nodes
-                TreeNode moduleNode = treeNodeManager.getOrCreateModuleNode(singleSet.getModule(), AreaType.ADMIN);
+                TreeNode moduleNode = treeNodeManager.getOrCreateModuleNode(singleSet.getModule());
                 TreeNode modulePartNode = treeNodeManager.getOrCreateNode(singleSet.getModulePart(), moduleNode, singleSet);
                 //loop the key-nodes
                 for(String key : singleSet.getAllKeys()) {

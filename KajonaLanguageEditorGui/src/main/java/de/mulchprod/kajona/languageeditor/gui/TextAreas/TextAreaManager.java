@@ -42,8 +42,7 @@ public class TextAreaManager {
 
     private static TextAreaManager instance = null;
 
-    private ArrayList<String> adminLanguages;
-    private ArrayList<String> portalLanguages;
+    private ArrayList<String> languages;
 
     private JPanel textPanel = null;
 
@@ -68,8 +67,6 @@ public class TextAreaManager {
         //remove old panes
         textPanel.removeAll();
 
-        //JScrollPane valueScrollPane = new javax.swing.JScrollPane();
-        //JScrollPane valueScrollPane2 = new javax.swing.JScrollPane();
 
         ArrayList<JScrollPane> panesToAdd = new ArrayList<JScrollPane>();
         ArrayList<String> languagesToLoop = new ArrayList<String>();
@@ -77,20 +74,13 @@ public class TextAreaManager {
         //rewrite: only use the languages really available in the file
         languagesToLoop = selectedSet.getListOfLanguages();
 
-        // admin or portal? variant 2: list all langauges for the current area
-        //if(selectedSet.getArea().equals("admin"))
-        //    languagesToLoop = adminLanguages;
-        //else if(selectedSet.getArea().equals("portal"))
-        //    languagesToLoop = portalLanguages;
-
-
         //a label of status infos
         JScrollPane tempScrollPaneInfo = new javax.swing.JScrollPane();
         JTextField infolabel = new JTextField();
         infolabel.setEditable(false);
         infolabel.setBackground(tempScrollPaneInfo.getBackground());
         infolabel.setBorder(BorderFactory.createEmptyBorder());
-        infolabel.setText(selectedSet.getArea()+"/"+selectedSet.getModule()+"/"+selectedSet.getModulePart()+"/"+keySelected);
+        infolabel.setText(selectedSet.getModule()+"/"+selectedSet.getModulePart()+"/"+keySelected);
         tempScrollPaneInfo.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
         tempScrollPaneInfo.setViewportView(infolabel);
         panesToAdd.add(tempScrollPaneInfo);
@@ -157,14 +147,9 @@ public class TextAreaManager {
         this.textPanel = panel;
     }
 
-    public void setAdminLanguages(ArrayList<String> adminLanguages) {
-        this.adminLanguages = adminLanguages;
+    public void setLanguages(ArrayList<String> languages) {
+        this.languages = languages;
     }
-
-    public void setPortalLanguaes(ArrayList<String> portalLanguaes) {
-        this.portalLanguages = portalLanguaes;
-    }
-
     
 
 }

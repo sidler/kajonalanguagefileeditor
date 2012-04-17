@@ -100,43 +100,12 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTree" name="adminTree">
+                    <Component class="javax.swing.JTree" name="langTree">
                       <Properties>
                         <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="new KeyTreeCellRenderer()" type="code"/>
                         </Property>
-                        <Property name="name" type="java.lang.String" value="adminTree" noResource="true"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="treeMousePressedHandler"/>
-                        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="treeMousePressedHandler"/>
-                      </Events>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JScrollPane" name="portalTreeScrollPane">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="null"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="portalTreeScrollPane" noResource="true"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Portal">
-                        <Property name="tabTitle" type="java.lang.String" resourceKey="portalTreeScrollPane.TabConstraints.tabTitle"/>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Component class="javax.swing.JTree" name="portalTree">
-                      <Properties>
-                        <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new KeyTreeCellRenderer()" type="code"/>
-                        </Property>
-                        <Property name="name" type="java.lang.String" value="portalTree" noResource="true"/>
+                        <Property name="name" type="java.lang.String" value="langTree" noResource="true"/>
                       </Properties>
                       <Events>
                         <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="treeMousePressedHandler"/>
@@ -209,9 +178,6 @@
               <Properties>
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="de.mulchprod.kajona.languageeditor.gui.KajonaLanguageEditorGuiView" id="saveToCoreAction" methodName="saveToCoreAction"/>
-                </Property>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+S"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" resourceKey="saveMenuItem.icon"/>
                 <Property name="text" type="java.lang.String" resourceKey="saveMenuItem.text"/>

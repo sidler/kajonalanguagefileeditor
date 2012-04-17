@@ -191,8 +191,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         busyIconTimer.start();
         statusMessageLabel.setText("Initializing Gui");
 
-        ((DefaultTreeModel)portalTree.getModel()).setRoot(new DefaultMutableTreeNode(""));
-        ((DefaultTreeModel)adminTree.getModel()).setRoot(new DefaultMutableTreeNode(""));
+        ((DefaultTreeModel)langTree.getModel()).setRoot(new DefaultMutableTreeNode(""));
 
         //try to fetch a core-connector
         if(CoreConnector.getInstance().isBitSetupError()) {
@@ -202,18 +201,16 @@ public class KajonaLanguageEditorGuiView extends FrameView {
 
         //Tree-setup
         TreeNodeManager.getInstance().resetCacheSets();
-        CoreConnector.getInstance().initPortalTree(portalTree);
-        CoreConnector.getInstance().initAdminTree(adminTree);
-        adminTree.addTreeSelectionListener(new GuiTreeSelectionListener(adminTree));
-        portalTree.addTreeSelectionListener(new GuiTreeSelectionListener(portalTree));
+        CoreConnector.getInstance().initLangTree(langTree);
+        langTree.addTreeSelectionListener(new GuiTreeSelectionListener(langTree));
+
         //adminTree.setRootVisible(false);
         //portalTree.setRootVisible(false);
 
         //TextArea-Setup
         TextAreaManager textManager = TextAreaManager.getInstance();
         textManager.setScrollContainer(textValuePanel);
-        textManager.setAdminLanguages(CoreConnector.getInstance().getAdminLanguages());
-        textManager.setPortalLanguaes(CoreConnector.getInstance().getPortalLanguages());
+        textManager.setLanguages(CoreConnector.getInstance().getLanguages());
         textManager.resetPanel();
 
         busyIconTimer.stop();
@@ -241,9 +238,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         jSplitPane1 = new javax.swing.JSplitPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         adminTreeScrollPane = new javax.swing.JScrollPane();
-        adminTree = new javax.swing.JTree();
-        portalTreeScrollPane = new javax.swing.JScrollPane();
-        portalTree = new javax.swing.JTree();
+        langTree = new javax.swing.JTree();
         jScrollPane1 = new javax.swing.JScrollPane();
         textValuePanel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
@@ -307,9 +302,9 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         adminTreeScrollPane.setBorder(null);
         adminTreeScrollPane.setName("adminTreeScrollPane"); // NOI18N
 
-        adminTree.setCellRenderer(new KeyTreeCellRenderer());
-        adminTree.setName("adminTree"); // NOI18N
-        adminTree.addMouseListener(new java.awt.event.MouseAdapter() {
+        langTree.setCellRenderer(new KeyTreeCellRenderer());
+        langTree.setName("langTree"); // NOI18N
+        langTree.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 treeMousePressedHandler(evt);
             }
@@ -317,26 +312,9 @@ public class KajonaLanguageEditorGuiView extends FrameView {
                 treeMousePressedHandler(evt);
             }
         });
-        adminTreeScrollPane.setViewportView(adminTree);
+        adminTreeScrollPane.setViewportView(langTree);
 
         jTabbedPane1.addTab(resourceMap.getString("adminTreeScrollPane.TabConstraints.tabTitle"), adminTreeScrollPane); // NOI18N
-
-        portalTreeScrollPane.setBorder(null);
-        portalTreeScrollPane.setName("portalTreeScrollPane"); // NOI18N
-
-        portalTree.setCellRenderer(new KeyTreeCellRenderer());
-        portalTree.setName("portalTree"); // NOI18N
-        portalTree.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                treeMousePressedHandler(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                treeMousePressedHandler(evt);
-            }
-        });
-        portalTreeScrollPane.setViewportView(portalTree);
-
-        jTabbedPane1.addTab(resourceMap.getString("portalTreeScrollPane.TabConstraints.tabTitle"), portalTreeScrollPane); // NOI18N
 
         jSplitPane1.setLeftComponent(jTabbedPane1);
 
@@ -381,7 +359,6 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         fileMenu.setName("fileMenu"); // NOI18N
 
         saveMenuItem.setAction(actionMap.get("saveToCoreAction")); // NOI18N
-        saveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         saveMenuItem.setIcon(resourceMap.getIcon("saveMenuItem.icon")); // NOI18N
         saveMenuItem.setText(resourceMap.getString("saveMenuItem.text")); // NOI18N
         saveMenuItem.setName("saveMenuItem"); // NOI18N
@@ -550,12 +527,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
             // doInBackground() depends on from parameters
             // to SaveToCoreActionTask fields, here.
             super(app);
-            
-            if(jTabbedPane1.getTitleAt(jTabbedPane1.getSelectedIndex()).equalsIgnoreCase("admin"))
-                lastSelectedGuiTreeNode = (GuiTreeNode)adminTree.getLastSelectedPathComponent();
-            else
-                lastSelectedGuiTreeNode = (GuiTreeNode)portalTree.getLastSelectedPathComponent();
-
+            lastSelectedGuiTreeNode = (GuiTreeNode)langTree.getLastSelectedPathComponent();
             startWorkingIcon("Saving files...");
             
         }
@@ -597,11 +569,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
             if(lastSelectedGuiTreeNode != null) {
                 ILanguageFileSet fileSet = lastSelectedGuiTreeNode.getReferencingTreeNode().getReferencingObject();
 
-                if (lastSelectedGuiTreeNode.getReferencingTreeNode().getReferencingObject().getArea().equals("admin")) {
-                    tree = adminTree;
-                } else {
-                    tree = portalTree;
-                }
+                tree = langTree;
 
                 TreePath path = new TreePath(tree.getModel().getRoot());
                 Object parentNode = tree.getModel().getRoot();
@@ -652,10 +620,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
             initInternalProperties();
 
             JTree tree = null;
-            if(lastSelectedGuiTreeNode.getReferencingTreeNode().getReferencingObject().getArea().equals("admin"))
-                tree = adminTree;
-            else
-                tree = portalTree;
+            tree = langTree;
 
             newValue = Textfile.replaceChars(newValue);
 
@@ -707,12 +672,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
             //reinit
             initInternalProperties();
 
-
-            JTree tree = null;
-            if(lastSelectedGuiTreeNode.getReferencingTreeNode().getReferencingObject().getArea().equals("admin"))
-                tree = adminTree;
-            else
-                tree = portalTree;
+            JTree tree = langTree;
 
             newValue = Textfile.replaceChars(newValue);
 
@@ -757,11 +717,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
             //reinit the trees
             initInternalProperties();
 
-            JTree tree = null;
-            if(lastSelectedGuiTreeNode.getReferencingTreeNode().getReferencingObject().getArea().equals("admin"))
-                tree = adminTree;
-            else
-                tree = portalTree;
+            JTree tree = langTree;
 
             TreePath path = new TreePath(  tree.getModel().getRoot()  );
             Object parentNode = tree.getModel().getRoot();
@@ -805,12 +761,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         //reinit
         initInternalProperties();
 
-        JTree tree = null;
-        if(lastSelectedGuiTreeNode.getReferencingTreeNode().getReferencingObject().getArea().equals("admin"))
-            tree = adminTree;
-        else
-            tree = portalTree;
-
+        JTree tree = langTree;
 
 
         TreePath path = new TreePath(  tree.getModel().getRoot()  );
@@ -918,12 +869,8 @@ public class KajonaLanguageEditorGuiView extends FrameView {
                 //reinit
                 initInternalProperties();
 
-                JTree tree = null;
-                if(lastSelectedGuiTreeNode.getReferencingTreeNode().getReferencingObject().getArea().equals("admin"))
-                    tree = adminTree;
-                else
-                    tree = portalTree;
-
+                JTree tree = langTree;
+      
                 TreePath path = new TreePath(  tree.getModel().getRoot()  );
                 Object parentNode = tree.getModel().getRoot();
                 for(int i=0; i < tree.getModel().getChildCount(parentNode); i++) {
@@ -959,7 +906,6 @@ public class KajonaLanguageEditorGuiView extends FrameView {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTree adminTree;
     private javax.swing.JScrollPane adminTreeScrollPane;
     private javax.swing.JMenuItem consoleMenuItem;
     private javax.swing.JMenuItem copyKey;
@@ -975,6 +921,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTree langTree;
     private javax.swing.JPopupMenu leafPopupMenu;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
@@ -983,8 +930,6 @@ public class KajonaLanguageEditorGuiView extends FrameView {
     private javax.swing.JMenuItem newLangItem;
     private javax.swing.JPopupMenu nodePopupMenu;
     private javax.swing.JMenuItem pasteKey;
-    private javax.swing.JTree portalTree;
-    private javax.swing.JScrollPane portalTreeScrollPane;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JMenuItem propsMenuItem;
     private javax.swing.JMenuItem renameItem;
