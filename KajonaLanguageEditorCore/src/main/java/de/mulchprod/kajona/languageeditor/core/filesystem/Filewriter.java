@@ -107,7 +107,7 @@ public class Filewriter {
                 }
             }
 
-            fileContent.append("?>");
+            fileContent.append("");
 
             //System.out.println(fileContent.toString());
 
