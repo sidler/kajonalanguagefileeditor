@@ -44,7 +44,7 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public class CoreConnector {
 
-    private Filemanager filemanager;
+    private Filemanager filemanager = null;
     private static CoreConnector instance = null;
     private TreeNodeManager treeNodeManager;
 
@@ -55,7 +55,8 @@ public class CoreConnector {
     }
 
     private void initConnector() {
-        filemanager = new Filemanager();
+        if(filemanager == null)
+            filemanager = new Filemanager();
 
         try {
             filemanager.readProjectFiles();
@@ -71,7 +72,9 @@ public class CoreConnector {
 
     private CoreConnector(ILELoggingListener listener) {
         filemanager = new Filemanager();
-        filemanager.addLogListener(listener);
+        
+        //TODO: disabled, possible memory leak
+        //filemanager.addLogListener(listener);
         initConnector();
     }
 
