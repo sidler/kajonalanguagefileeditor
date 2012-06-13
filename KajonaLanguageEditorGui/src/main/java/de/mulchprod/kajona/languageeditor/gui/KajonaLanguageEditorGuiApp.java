@@ -33,7 +33,12 @@ public class KajonaLanguageEditorGuiApp extends SingleFrameApplication {
      * At startup create and show the main frame of the application.
      */
     @Override protected void startup() {
+        
+        
+        
+        
         show(new KajonaLanguageEditorGuiView(this));
+        
     }
 
     /**
@@ -56,6 +61,14 @@ public class KajonaLanguageEditorGuiApp extends SingleFrameApplication {
      * Main method launching the application.
      */
     public static void main(String[] args) {
+        
+        //validate the current os
+        if(System.getProperty("os.name").toLowerCase().contains("mac")) {
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+            System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Kajona Language File Editor");
+
+        }
+        
         launch(KajonaLanguageEditorGuiApp.class, args);
     }
 }

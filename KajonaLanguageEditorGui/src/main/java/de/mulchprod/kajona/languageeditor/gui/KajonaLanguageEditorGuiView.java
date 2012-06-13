@@ -69,6 +69,7 @@ public class KajonaLanguageEditorGuiView extends FrameView {
         initComponents();
 
         
+        
        
         
         getApplication().addExitListener(new ExitListener() {
