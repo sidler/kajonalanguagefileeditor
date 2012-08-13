@@ -186,15 +186,14 @@ public class LanguageFileSet implements ILanguageFileSet {
     }
 
     public boolean updateKeyValue(String oldKey, String newKey) throws KeyNotUniqueException {
-        try {
-            for (Textfile file : fileMap.values()) {
+        for (Textfile file : fileMap.values()) {
+            try {
                 file.setKeyValue(oldKey, newKey);
+            } catch (KeyNotFoundException ex) {
+                LELogger.getInstance().logInfo(ex.getMessage());
             }
-            return true;
-        } catch (KeyNotFoundException ex) {
-            LELogger.getInstance().logInfo(ex.getMessage());
         }
-        return false;
+        return true;
     }
 
     public boolean createKeyValue(String keyToCreate) throws KeyNotUniqueException {

@@ -19,7 +19,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jToolBar1" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jSplitPane1" pref="246" max="32767" attributes="0"/>
+                  <Component id="jSplitPane1" pref="253" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -260,7 +260,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="statusMessageLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="450" max="32767" attributes="0"/>
+                  <EmptySpace pref="462" max="32767" attributes="0"/>
                   <Component id="progressBar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="statusAnimationLabel" min="-2" max="-2" attributes="0"/>
@@ -380,6 +380,9 @@
             <Property name="text" type="java.lang.String" resourceKey="renameItem.text"/>
             <Property name="name" type="java.lang.String" value="renameItem" noResource="true"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="KajonaLanguageEditorGuiView_renameItem"/>
+          </AuxValues>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="deleteItem">
           <Properties>
