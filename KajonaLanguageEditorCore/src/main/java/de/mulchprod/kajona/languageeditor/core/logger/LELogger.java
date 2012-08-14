@@ -33,7 +33,7 @@ public class LELogger {
 
     private ArrayList<ILELoggingListener> listener = new ArrayList<ILELoggingListener>();
 
-    private boolean logToConsole = true;
+    private boolean logToConsole = false;
     private boolean includeDate = false;
 
     private LELogger() {
