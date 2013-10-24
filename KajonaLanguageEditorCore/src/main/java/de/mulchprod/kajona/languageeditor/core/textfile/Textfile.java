@@ -57,14 +57,22 @@ public class Textfile implements ITextfile {
         rawfilename = rawfilename.replace(".php", "");
         String[] filenameparts = rawfilename.split("_");
         
-        if(filenameparts.length == 3) {
+        if(filenameparts.length >= 3) {
 
             String foldername = fileObject.getPath().replace("\\", "/").replace("/"+fileObject.getName(), "");
             String rawModulepart = foldername.substring(foldername.lastIndexOf("module_")+7);
 
-            this.setLanguage(filenameparts[2]);
+            //build the module-part
+            String modulepart = "";
+            for(int i = 1; i < filenameparts.length-1; i++) {
+                modulepart += "_"+filenameparts[i];
+            }
+            
+            modulepart = modulepart.substring(1);
+            
+            this.setLanguage(filenameparts[filenameparts.length-1]);
             this.setModule(rawModulepart);
-            this.setModulepart(filenameparts[1]);
+            this.setModulepart(modulepart);
             this.setSourcePath(fileObject.getPath());
             this.setFilename(fileObject.getName());
         
