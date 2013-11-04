@@ -89,16 +89,6 @@ public class Filewriter {
             fileContent.append("//Kajona Language Editor Core Build "+new Filemanager().getBuildVersion()+"\n");
 
             
-
-            if(file.getTextEntries().size() > 0) {
-                fileContent.append("\n//editable entries\n");
-
-                for(Textentry entry : file.getTextEntries().values()) {
-                    fileContent.append(entry.getEntryAsString(true));
-                }
-            }
-
-            
             if(file.getNonEditableTextEntries().size() > 0) {
                 fileContent.append("\n//non-editable entries\n");
 
@@ -106,6 +96,17 @@ public class Filewriter {
                     fileContent.append(entry.getEntryAsString(true));
                 }
             }
+
+            if(file.getTextEntries().size() > 0) {
+                fileContent.append("\n\n//editable entries\n");
+
+                for(Textentry entry : file.getTextEntries().values()) {
+                    fileContent.append(entry.getEntryAsString(true));
+                }
+            }
+
+            
+            
 
             fileContent.append("");
 

@@ -32,13 +32,22 @@ public class Textentry implements ITextentry, Comparable<Textentry> {
 
     private String readableKey = "";
     private String readableValue = "";
-    
+    private String fullEntry = "";
+        
     private boolean isEditableEntry = true;
 
     public void generateKeyValuePairFromEntry(String entry) throws EntryNotSetException {
         if(entry == null)
             throw new EntryNotSetException();
-
+        
+        //fetch include statements
+        if(entry.trim().startsWith("include")) {
+            isEditableEntry = false;
+            readableKey = entry;
+            fullEntry = entry;
+            return;
+        }
+        
         //row is set up like
         String longKey = entry.substring(0, entry.indexOf("=")+1);
         String longValue = entry.substring(entry.indexOf("=")+1);
@@ -63,6 +72,11 @@ public class Textentry implements ITextentry, Comparable<Textentry> {
 
     public String getEntryAsString(boolean addLinebreak) {
 
+        //pass special row directly
+        if(!isEditableEntry && !fullEntry.equals(""))
+            return fullEntry;
+            
+        
         //only append the current entry if the value is != ""
         if(readableValue.length() == 0)
             return "";
@@ -84,7 +98,7 @@ public class Textentry implements ITextentry, Comparable<Textentry> {
 
     @Override
     public String toString() {
-        return "  single entry. (key/value): " + readableKey + "/" + readableValue + "\n" ;
+        return "  single entry. (key/value/fullentry): " + readableKey + "/" + readableValue + "/"+ fullEntry +"\n" ;
     }
 
     public String getReadableKey() {

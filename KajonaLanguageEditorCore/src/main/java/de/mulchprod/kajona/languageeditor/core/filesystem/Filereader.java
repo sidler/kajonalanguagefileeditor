@@ -72,7 +72,7 @@ public class Filereader {
                         singleRow += row;
                 }
                 else {
-                    if(row.startsWith("$lang")) {
+                    if(row.startsWith("$lang") || row.startsWith("include")) {
                         if(!row.endsWith(";")) {
                             //entry spans across multiple rows...
                             //disabled, only one-row-entries by convention, so skipping
