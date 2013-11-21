@@ -49,7 +49,7 @@ public class Main {
         if(args.length < 3) {
             System.out.println("No argument specified. Usage:");
 
-            System.out.println("formatLangfiles --projectFolder <path>");
+            System.out.println("--formatLangfiles --projectFolder <path>");
 
 
         }
