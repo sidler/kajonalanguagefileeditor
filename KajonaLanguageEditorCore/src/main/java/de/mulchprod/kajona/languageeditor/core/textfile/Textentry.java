@@ -78,8 +78,8 @@ public class Textentry implements ITextentry, Comparable<Textentry> {
             
         
         //only append the current entry if the value is != ""
-        if(readableValue.length() == 0)
-            return "";
+//        if(readableValue.length() == 0)
+//            return "";
         
         String newKey = "$lang[\""+readableKey+"\"]";
         String newValue = "";
